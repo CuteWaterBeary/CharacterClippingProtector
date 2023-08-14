@@ -1,7 +1,45 @@
 # Character Clipping Protector
 A unity tool to reduce the amount of clipping between clothing layers and characters by hiding areas of the mesh which are occluded by outer layers.
 
-<img src="https://github.com/Hines94/ImagesForRepos/blob/master/PreClipper.png" width="310" height="266"> | <img src="https://github.com/Hines94/ImagesForRepos/blob/master/ClipperRun.png" width="310" height="266">
+## Required Packages
+- Collections
+- EditorCoroutines
+- Jobs
+- Burst
+
+
+![](PreClipper.png)
+
+
+![](ClipperRun.png)
+
+
+![](ClipperRunning.png)
+
+
+**Note: if duplicate unsafe.dll's are detected, reload vrchat sdk to fix**
+
+
+Still getting error:
+
+```
+System.TypeInitializationException: The type initializer for 'Unity.Burst.Editor.BurstReflection' threw an exception. ---> UnityEditor.Compilation.PrecompiledAssemblyException: Multiple precompiled assemblies with the same name System.Runtime.CompilerServices.Unsafe.dll included or the current platform. Only one assembly with the same name is allowed per platform. Assembly paths:
+Library/PackageCache/com.unity.collections@0.9.0-preview.6/System.Runtime.CompilerServices.Unsafe.dll
+Packages/com.vrchat.base/Runtime/VRCSDK/Dependencies/Managed/System.Runtime.CompilerServices.Unsafe.dll
+  at UnityEditor.Scripting.ScriptCompilation.EditorBuildRules.ValidateAndGetNameToPrecompiledAssembly (UnityEditor.Scripting.ScriptCompilation.PrecompiledAssembly[] precompiledAssemblies) [0x00151] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Scripting.ScriptCompilation.EditorBuildRules.ToScriptAssemblies (System.Collections.Generic.IDictionary`2[TKey,TValue] targetAssemblies, UnityEditor.Scripting.ScriptCompilation.ScriptAssemblySettings settings, UnityEditor.Scripting.ScriptCompilation.EditorBuildRules+CompilationAssemblies assemblies, System.Collections.Generic.HashSet`1[T] runUpdaterAssemblies) [0x00007] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Scripting.ScriptCompilation.EditorBuildRules.GetAllScriptAssemblies (System.Collections.Generic.Dictionary`2[TKey,TValue] allSourceFiles, System.String projectDirectory, UnityEditor.Scripting.ScriptCompilation.ScriptAssemblySettings settings, UnityEditor.Scripting.ScriptCompilation.EditorBuildRules+CompilationAssemblies assemblies, System.Collections.Generic.HashSet`1[T] runUpdaterAssemblies, UnityEditor.Scripting.ScriptCompilation.EditorBuildRules+TargetAssemblyType onlyIncludeType) [0x00137] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Scripting.ScriptCompilation.EditorCompilation.GetAllScriptAssemblies (UnityEditor.Scripting.ScriptCompilation.EditorScriptCompilationOptions options, UnityEditor.Scripting.ScriptCompilation.PrecompiledAssembly[] unityAssembliesArg, UnityEditor.Scripting.ScriptCompilation.PrecompiledAssembly[] precompiledAssembliesArg, System.String[] defines) [0x00076] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Scripting.ScriptCompilation.EditorCompilation.GetAllScriptAssemblies (UnityEditor.Scripting.ScriptCompilation.EditorScriptCompilationOptions options, System.String[] defines) [0x0001f] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Compilation.CompilationPipeline.GetEditorAssemblies (UnityEditor.Scripting.ScriptCompilation.EditorCompilation editorCompilation, UnityEditor.Scripting.ScriptCompilation.EditorScriptCompilationOptions additionalOptions, System.String[] defines) [0x00001] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Compilation.CompilationPipeline.GetAssemblies (UnityEditor.Scripting.ScriptCompilation.EditorCompilation editorCompilation, UnityEditor.Compilation.AssembliesType assembliesType) [0x0001e] in <a259d3c004024353a2c217da97495055>:0
+  at UnityEditor.Compilation.CompilationPipeline.GetAssemblies (UnityEditor.Compilation.AssembliesType assembliesType) [0x00006] in <a259d3c004024353a2c217da97495055>:0
+  at Unity.Burst.Editor.BurstReflection..cctor () [0x00030] in Library\PackageCache\com.unity.burst@1.4.11\Editor\BurstReflection.cs:617
+   --- End of inner exception stack trace ---
+
+  at Unity.Burst.Editor.BurstLoader..cctor () [0x00160] in Library\PackageCache\com.unity.burst@1.4.11\Editor\BurstLoader.cs:148
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+```
 
 Works very well, small issues with certain areas such as armpits as described below.
 
@@ -15,8 +53,6 @@ Works very well, small issues with certain areas such as armpits as described be
 - Run the "Character Clipping Protector" - Check button - on "HumanMesh_WITHCLIPPINGPROTECTOR"
 
 - Adjust the sliders for differing results
-
-- Requires the packages: Burst, Jobs & Editor Coroutines
 
 ### Strengths:
 - Fast - could be potentially used sparingly realtime depending on the mesh
@@ -55,7 +91,7 @@ Works very well, small issues with certain areas such as armpits as described be
 - Creates a seperate collider mesh to test against for each mesh
 
 - Uses the new Raycast command to cast for each vertex on each mesh from the outside in
- 
+
 - Collects results and processes to find areas with overlap
 
 - Creates a new mesh and hides areas with signigicant overlap
@@ -63,4 +99,4 @@ Works very well, small issues with certain areas such as armpits as described be
 ### Debugging:
 - Use the debug options on the tool to show either mesh hits (overlapping zones) or every raycast made.
 
-<img src="https://github.com/Hines94/ImagesForRepos/blob/master/ClipperRunning.png" width="310" height="266">
+![](ClipperRunning.png)

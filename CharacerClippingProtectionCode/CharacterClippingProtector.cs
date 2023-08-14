@@ -55,7 +55,7 @@ public class CharacterClippingProtector : MonoBehaviour
     public void ResetCachedResults() { CachedResults = new Dictionary<ClippingProtectorSetup, ClippingProtectorResult>(); }
 
     /// <summary>
-    /// Main method. Runs a raycast simulation and hides parts of mesh that are obscured. 
+    /// Main method. Runs a raycast simulation and hides parts of mesh that are obscured.
     /// NOTE has to be IEnumerator otherwise created collision meshes do not provide any raycast result on same frame.
     /// </summary>
     public IEnumerator RunClippingSimulation(Action OnSimulationComplete = null)
@@ -240,7 +240,7 @@ public class CharacterClippingProtector : MonoBehaviour
     /// <param name="Colliders"></param>
     private void CreateColliders(List<GameObject> Colliders)
     {
-        int Found = 0;
+        // int Found = 0;
         foreach (SkinnedMeshRenderer smr in Meshes)
         {
             if (smr == null || smr.sharedMesh == null) { continue; }
